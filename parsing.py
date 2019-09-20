@@ -1,6 +1,7 @@
 import re
 import maths
 
+
 def add_coef_to_associate_degree(value, signe, coef, coefs):
     try:
         degree = int(re.search("\^ ?\d+(\.\d+)? ?", value).group()[1:])
@@ -13,31 +14,31 @@ def add_coef_to_associate_degree(value, signe, coef, coefs):
     else:
         coefs[degree] += coef * signe
 
-def searching_numbers(value, signe, coefs):
+
+def searching_numbers(value, sine, coefs):
     if re.search(r"^ ?\d+(\.\d+)? ?$", value):
-        #print(float(value))
-        #print("signe:", signe)
-        coefs[0] += float(value) * signe
+        coefs[0] += float(value) * sine
     elif re.search(r"^ ?X( ?\^ ?\d+)? ?$", value):
-        add_coef_to_associate_degree(value, signe, 1, coefs)
+        add_coef_to_associate_degree(value, sine, 1, coefs)
     elif re.search(r"^ ?\d+(\.\d+)?( ?\* ?)?X( ?\^ ?\d+)? ?$", value) or re.search(r"^ ?X( ?\^ ?\d+)? ?\* ?\d+(\.\d+)? ?$", value):
-        coef = float(re.search("(^|[^\^ ?0123456789]) ?\d+(\.\d+)?", value).group().replace('*', ''))
+        coef = float(re.search(r"(^|[^\^ ?0123456789]) ?\d+(\.\d+)?", value).group().replace('*', ''))
         if not coef:
             return
-        add_coef_to_associate_degree(value, signe, coef, coefs)
+        add_coef_to_associate_degree(value, sine, coef, coefs)
     else:
         print('Error : incorrect syntax : ' + '\'' + value.strip()+ '\'.')
         exit()
 
-def main(parts_equation, coefs):
+
+def start(parts_equation, coefs):
     for idx, part in enumerate(parts_equation):
-        signe = 1
+        sine = 1
         if not part:
             print("Error, each part of the equation must contain 1 number or more.")
             exit()
         if part[0] == '-' or part[0] == '+':
             if part[0] == '-':
-                signe = -1
+                sine = -1
             part = part[1:]
         if idx == 1:
             side = -1
@@ -47,13 +48,13 @@ def main(parts_equation, coefs):
             a = part.find('+')
             b = part.find('-')
             if a == -1 and b == -1:
-                searching_numbers(part, signe * side, coefs)
+                searching_numbers(part, sine * side, coefs)
                 break
             c = maths.get_lowest(a, b)
             value = part[:c]
-            searching_numbers(value, signe * side, coefs)
+            searching_numbers(value, sine * side, coefs)
             if part[c] == '-':
-                signe = -1
+                sine = -1
             else:
-                signe = 1
+                sine = 1
             part = part[c + 1:]

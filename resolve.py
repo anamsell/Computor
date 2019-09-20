@@ -1,6 +1,9 @@
 import maths
+import clean_string
+import class_number
 
-def main(coefs):
+
+def start(coefs):
     if coefs['max'] == 0:
         if coefs[0] == 0:
             print('Every real number are solution.')
@@ -8,23 +11,33 @@ def main(coefs):
             print("There is no solution.")
         exit()
     if coefs['max'] == 1:
-        a, b = maths.irreductible_fraction(coefs[0] * -1, coefs[1])
+        numerator, denominator = maths.irreducible_fraction(coefs[0] * -1, coefs[1])
+        print("a = " + str(coefs[1]) + ' | b = ' + str(coefs[0]))
+        print("The formula is : -b/a")
         print('The solution is:')
-        if b == 1:
-            print(str(a))
-        else:
-            print(str(a) + '/' + str(b))
+        print(clean_string.division(numerator, denominator))
         exit()
     discriminant = coefs[1] * coefs[1] - 4 * coefs[2] * coefs[0]
-    if discriminant < 0:
-        print("There is no solution.")
-        exit()
+    print("a = " + str(coefs[2]) + " | b = " + str(coefs[1]) + " | " + "c = " + str(coefs[0]))
+    print("Discriminant: " + str(discriminant))
+    numerator, denominator = maths.irreducible_fraction(coefs[1] * -1, coefs[2] * 2)
     if discriminant == 0:
-        a, b = maths.irreductible_fraction(coefs[1] * -1, coefs[2] * 2)
-        print('The solution is:')
-        if b == 1:
-            print(str(a))
-        else:
-            print(str(a) + '/' + str(b))
+        print("Discriminant is nul, the solution is:")
+        print("-b/2a")
+        print(clean_string.division(numerator, denominator))
         exit()
-    solution1 = (coefs[1] * -1 - maths.racine(discriminant)) / (2 * coefs[2])
+    if discriminant < 0:
+        print("Discriminant is strictly negative, the two solutions in the complex number are:")
+        print("(-b + " + u"\u221A" + '-' + u"\u0394" + ")/2a\n(-b - " + u"\u221A" + '-' + u"\u0394" + ")/2a")
+        square_part1 = class_number.Number(numerator_square=-discriminant, denominator=2*coefs[2], real=0)
+        square_part2 = class_number.Number(numerator=-1, numerator_square=-discriminant, denominator=2*coefs[2], real=0)
+    else:
+        print("Discriminant is strictly positive, the two solutions are:")
+        print("(-b + " + u"\u221A" + u"\u0394" + ")/2a\n(-b - " + u"\u221A" + u"\u0394" + ")/2a")
+        square_part1 = class_number.Number(numerator_square=discriminant, denominator=2*coefs[2])
+        square_part2 = class_number.Number(numerator=-1, numerator_square=discriminant, denominator=2*coefs[2])
+
+    rational_part = class_number.Number(numerator=-coefs[1], denominator=2*coefs[2])
+    class_number.Result(rational_part, square_part1)
+    class_number.Result(rational_part, square_part2)
+
