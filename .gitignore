@@ -1,0 +1,12 @@
+
+*.iml
+
+\.idea/dictionaries/
+
+\.idea/inspectionProfiles/
+
+\.idea/
+
+__pycache__/
+
+*.pyc

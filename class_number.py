@@ -2,6 +2,7 @@ import maths
 import copy
 import clean_string
 
+
 class Result:
     def __init__(self, n1, n2):
         self.n1 = copy.copy(n1)
@@ -88,3 +89,7 @@ class Number:
         self.denominator_square, f2 = maths.square(self.denominator_square)
         self.numerator *= f1
         self.denominator *= f2
+        if self.denominator_square != 1:
+            self.denominator *= self.denominator_square
+            self.numerator_square *= self.denominator_square
+            self.denominator_square = 1

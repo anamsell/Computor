@@ -3,11 +3,11 @@ import maths
 
 
 def reduce_form(coefs):
-    lst = sorted(coefs)
+    lst = coefs.copy()
+    del lst['max']
+    lst = sorted(lst)
     string = ''
     for degree in lst:
-        if degree == 'max':
-            break
         string += maths.sign_number(coefs[degree]) + ' ' + str(maths.absolute(coefs[degree])) + 'X^' + str(degree) + ' '
         if coefs[degree] != 0:
             coefs['max'] = degree
@@ -16,6 +16,8 @@ def reduce_form(coefs):
     string = re.sub(r" 1X", ' X', string)
     string = re.sub(r"^1X", 'X', string)
     string = re.sub(r"\^1", '', string)
+    if not string:
+        string = '+ 0 '
     if string[0] == '+':
         return string[2:]
     return '-' + string[2:]

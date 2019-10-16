@@ -1,6 +1,7 @@
 import maths
 import clean_string
 import class_number
+from decimal import Decimal
 
 
 def start(coefs):
@@ -17,7 +18,7 @@ def start(coefs):
         print('The solution is:')
         print(clean_string.division(numerator, denominator))
         exit()
-    discriminant = coefs[1] * coefs[1] - 4 * coefs[2] * coefs[0]
+    discriminant = Decimal(str(coefs[1])) * Decimal(str(coefs[1])) - Decimal(4) * Decimal(str(coefs[2])) * Decimal(str(coefs[0]))
     print("a = " + str(coefs[2]) + " | b = " + str(coefs[1]) + " | " + "c = " + str(coefs[0]))
     print("Discriminant: " + str(discriminant))
     numerator, denominator = maths.irreducible_fraction(coefs[1] * -1, coefs[2] * 2)
@@ -40,4 +41,3 @@ def start(coefs):
     rational_part = class_number.Number(numerator=-coefs[1], denominator=2*coefs[2])
     class_number.Result(rational_part, square_part1)
     class_number.Result(rational_part, square_part2)
-

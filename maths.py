@@ -1,15 +1,12 @@
-import clean_string
-
-
 def num_after_point(x):
     s = str(x)
-    if not '.' in s:
+    if '.' not in s:
         return 0
     return len(s) - s.index('.') - 1
 
 
 def modulo(a, b):
-    return a - (int(a) / int(b)) * b
+    return a - (int(a / b)) * b
 
 
 def is_prime(nbr, prime_numbers):
@@ -22,31 +19,32 @@ def is_prime(nbr, prime_numbers):
 
 
 def get_next_prime(nbr, prime_numbers):
-    if is_prime(nbr, prime_numbers):
-        return nbr
-    return get_next_prime(nbr + 1, prime_numbers)
+    while 1:
+        if is_prime(nbr, prime_numbers):
+            return nbr
+        nbr += 1
 
 
-def same_denominator(num1, denom, num2, denom2):
-    gcd = find_gcd_euclide(denom, denom2)
-    num1 *= denom2 / gcd
-    num2 *= denom / gcd
-    denom = denom * denom2 / gcd
-    return num1, denom, num2, denom
+def same_denominator(numerator1, denominator, numerator2, denominator2):
+    gcd = find_gcd_euclide(denominator, denominator2)
+    numerator1 *= denominator2 / gcd
+    numerator2 *= denominator / gcd
+    denominator = denominator * denominator2 / gcd
+    return numerator1, denominator, numerator2, denominator
 
 
 def square(nbr):
     i = 2
     prime_numbers = [2]
-    coef = 1
+    coefficient = 1
     while i * i <= nbr:
         if not modulo(nbr, i * i):
-            coef *= i
+            coefficient *= i
             nbr /= i * i
         else:
             i = get_next_prime(i + 1, prime_numbers)
             prime_numbers += [i]
-    return nbr, coef
+    return nbr, coefficient
 
 
 def find_gcd_euclide(a, b):

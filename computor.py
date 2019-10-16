@@ -17,13 +17,13 @@ parts_equation = string.split('=')
 if len(parts_equation) != 2:
     print('Too much \'=\' in the equation, can only have 1.')
     exit()
-coefs = {0:0, 1:0, 2:0, 'max' : 0}
+coefficients = {0: 0, 1: 0, 2: 0, 'max': 0}
 clean_string.entry(parts_equation)
-parsing.start(parts_equation, coefs)
-clean_string.transform_int(coefs)
-print("Reduced form: " + clean_string.reduce_form(coefs) + "= 0")
-print("Polynomial degree: " + str(coefs['max']))
-if coefs['max'] > 2:
+parsing.start(parts_equation, coefficients)
+clean_string.transform_int(coefficients)
+print("Reduced form: " + clean_string.reduce_form(coefficients) + "= 0")
+print("Polynomial degree: " + str(coefficients['max']))
+if coefficients['max'] > 2:
     print("The polynomial degree is stricly greater than 2, I can\'t solve.")
     exit()
-resolve.start(coefs)
+resolve.start(coefficients)
