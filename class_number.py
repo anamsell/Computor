@@ -1,16 +1,15 @@
 import maths
-import copy
+from copy import copy
 import clean_string
 
 
 class Result:
     def __init__(self, n1, n2):
-        self.n1 = copy.copy(n1)
-        self.n2 = copy.copy(n2)
-        if self.n1.numerator < 0:
-            tmp = self.n1
-            self.n1 = self.n2
-            self.n2 = tmp
+        self.n1 = copy(n1)
+        self.n2 = copy(n2)
+        self.calculate()
+
+    def calculate(self):
         self.same_fraction()
         printable_fraction = ''
         if not self.n1.real:
@@ -31,15 +30,23 @@ class Result:
             printable_fraction += clean_string.get_string(self.n1.numerator, self.n1.numerator_square, char1_real)
         else:
             common = maths.find_gcd_euclide(self.n1.numerator, self.n2.numerator)
-            if common < 0 < self.n1.numerator:
-                common *= -1
             if common != 1:
                 self.n1.numerator /= common
                 self.n2.numerator /= common
+                if self.n1.denominator < 0:
+                    common *= -1
+                    self.n1.denominator *= -1
                 if common == -1:
                     printable_fraction += '-'
                 else:
-                    printable_fraction += str(common)
+                    printable_fraction += str(clean_string.change_number_to_int(common))
+            if self.n1.numerator < 0 < self.n2.numerator:
+                tmp = self.n1
+                self.n1 = self.n2
+                self.n2 = tmp
+                tmp = char1_real
+                char1_real = char2_real
+                char2_real = tmp
             if not (self.n1.denominator == 1 and self.n1.denominator_square) or not common == '':
                 printable_fraction += '('
             printable_fraction += clean_string.get_string(self.n1.numerator, self.n1.numerator_square, char1_real)
@@ -51,12 +58,23 @@ class Result:
             if not (self.n1.denominator == 1 and self.n1.denominator_square) or not common == '':
                 printable_fraction += ')'
         if not (self.n1.denominator == 1 and self.n1.denominator_square == 1):
-            printable_fraction += '/' + str(self.n1.denominator)
+            printable_fraction += '/' + str(clean_string.change_number_to_int(self.n1.denominator))
         if not self.n1.denominator_square == 1:
-            printable_fraction += u"\u221A" + str(self.n1.denominator_square)
-        print(printable_fraction)
+            printable_fraction += u"\u221A" + str(clean_string.change_number_to_int(self.n1.denominator_square))
+        self.display_result(printable_fraction)
+
+    @staticmethod
+    def display_result(result):
+        print(result)
 
     def same_fraction(self):
+        print("------------------")
+        print("v2")
+        print("denominator1 : " + str(self.n1.denominator))
+        print("denominator2 : " + str(self.n2.denominator))
+        print("numerator1 : " + str(self.n1.numerator))
+        print("numerator2: " + str(self.n2.numerator))
+        print("------------------")
         self.n1.numerator, self.n1.denominator, self.n2.numerator, self.n2.denominator = \
             maths.same_denominator(self.n1.numerator, self.n1.denominator, self.n2.numerator, self.n2.denominator)
         self.n1.numerator_square *= self.n2.denominator_square
@@ -73,22 +91,38 @@ class Number:
         self.denominator = denominator
         self.numerator_square = numerator_square
         self.denominator_square = denominator_square
+        print("------------------")
+        print("v1")
+        print("denominator_square : " + str(self.denominator_square))
+        print("numerator_square : " + str(self.numerator_square))
+        print("denominator : " + str(self.denominator))
+        print("numerator : " + str(self.numerator))
+        print("------------------")
         self.reduce_squares()
         self.reduce_fraction()
         self.real = real
+        if self.denominator < 0:
+            self.denominator *= -1
+            self.numerator *= -1
         pass
 
     def reduce_fraction(self):
         self.numerator, self.denominator = maths.irreducible_fraction(self.numerator, self.denominator)
 
     def reduce_squares(self):
-
         self.numerator_square, self.denominator_square = maths.irreducible_fraction(self.numerator_square,
                                                                                     self.denominator_square)
         self.numerator_square, f1 = maths.square(self.numerator_square)
         self.denominator_square, f2 = maths.square(self.denominator_square)
+        print("------------------")
+        print("v1.6")
+        print("f2 : " + str(f2))
+        print("denominator : " + str(self.denominator))
+        print("------------------")
         self.numerator *= f1
         self.denominator *= f2
+
+
         if self.denominator_square != 1:
             self.denominator *= self.denominator_square
             self.numerator_square *= self.denominator_square
