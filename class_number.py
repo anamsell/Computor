@@ -68,13 +68,6 @@ class Result:
         print(result)
 
     def same_fraction(self):
-        print("------------------")
-        print("v2")
-        print("denominator1 : " + str(self.n1.denominator))
-        print("denominator2 : " + str(self.n2.denominator))
-        print("numerator1 : " + str(self.n1.numerator))
-        print("numerator2: " + str(self.n2.numerator))
-        print("------------------")
         self.n1.numerator, self.n1.denominator, self.n2.numerator, self.n2.denominator = \
             maths.same_denominator(self.n1.numerator, self.n1.denominator, self.n2.numerator, self.n2.denominator)
         self.n1.numerator_square *= self.n2.denominator_square
@@ -91,13 +84,6 @@ class Number:
         self.denominator = denominator
         self.numerator_square = numerator_square
         self.denominator_square = denominator_square
-        print("------------------")
-        print("v1")
-        print("denominator_square : " + str(self.denominator_square))
-        print("numerator_square : " + str(self.numerator_square))
-        print("denominator : " + str(self.denominator))
-        print("numerator : " + str(self.numerator))
-        print("------------------")
         self.reduce_squares()
         self.reduce_fraction()
         self.real = real
@@ -114,14 +100,8 @@ class Number:
                                                                                     self.denominator_square)
         self.numerator_square, f1 = maths.square(self.numerator_square)
         self.denominator_square, f2 = maths.square(self.denominator_square)
-        print("------------------")
-        print("v1.6")
-        print("f2 : " + str(f2))
-        print("denominator : " + str(self.denominator))
-        print("------------------")
         self.numerator *= f1
         self.denominator *= f2
-
 
         if self.denominator_square != 1:
             self.denominator *= self.denominator_square

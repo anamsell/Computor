@@ -27,15 +27,9 @@ def get_next_prime(nbr, prime_numbers):
 
 def same_denominator(numerator1, denominator1, numerator2, denominator2):
     gcd = find_gcd_euclide(denominator1, denominator2)
-    print("gcd : " + str(gcd))
     numerator1 *= denominator2 / gcd
     numerator2 *= denominator1 / gcd
     denominator1 = denominator1 * denominator2 / gcd
-    print("------------------")
-    print("v3")
-    print("denominator : " + str(denominator1))
-    print("numerator : " + str(numerator1))
-    print("------------------")
     return numerator1, denominator1, numerator2, denominator1
 
 

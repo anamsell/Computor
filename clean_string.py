@@ -31,7 +31,7 @@ def get_string(rational, square, char_real):
         printable_fraction += str(change_number_to_int(rational))
     printable_fraction += char_real
     if square != 1 and rational != 0:
-        printable_fraction += u"\u221a" + str(square)
+        printable_fraction += u"\u221a" + str(change_number_to_int(square))
     return printable_fraction
 
 
