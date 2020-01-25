@@ -34,7 +34,6 @@ def same_denominator(numerator1, denominator1, numerator2, denominator2):
 
 
 def square(nbr):
-
     i = 2
     prime_numbers = [2]
     coefficient = 1

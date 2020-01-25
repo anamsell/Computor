@@ -8,7 +8,7 @@ def reduce_form(coefficients):
     lst = sorted(lst)
     string = ''
     for degree in lst:
-        if coefficients[degree] != 0:
+        if coefficients[degree]:
             string += maths.sign_number(coefficients[degree]) + \
                       ' ' + str(maths.absolute(coefficients[degree])) + 'X^' + str(degree) + ' '
             coefficients['max'] = degree

@@ -21,8 +21,8 @@ coefficients = {0: 0, 1: 0, 2: 0, 'max': 0}
 clean_string.entry(parts_equation)
 parsing.start(parts_equation, coefficients)
 clean_string.change_coefficients_to_int(coefficients)
-print("Reduced form: " + clean_string.reduce_form(coefficients) + "= 0")
-print("Polynomial degree: " + str(coefficients['max']))
+print('\033[1m' + "Reduced form: " + '\033[1m' + clean_string.reduce_form(coefficients) + "= 0")
+print('\033[1m' + "Polynomial degree: " + '\033[1m' + str(coefficients['max']))
 if coefficients['max'] > 2:
     print("The polynomial degree is strictly greater than 2, I can\'t solve.")
     exit()

@@ -1,6 +1,7 @@
 import maths
 from copy import copy
 import clean_string
+from decimal import Decimal
 
 
 class Result:
@@ -11,7 +12,7 @@ class Result:
 
     def calculate(self):
         self.same_fraction()
-        printable_fraction = ''
+        printable_fraction = str()
         if not self.n1.real:
             char1_real = 'i'
         else:
@@ -70,9 +71,10 @@ class Result:
     def same_fraction(self):
         self.n1.numerator, self.n1.denominator, self.n2.numerator, self.n2.denominator = \
             maths.same_denominator(self.n1.numerator, self.n1.denominator, self.n2.numerator, self.n2.denominator)
-        self.n1.numerator_square *= self.n2.denominator_square
-        self.n2.numerator_square *= self.n1.denominator_square
-        self.n1.denominator_square *= self.n2.denominator_square
+        self.n1.numerator_square = float(Decimal(str(self.n1.numerator_square)) * Decimal(self.n2.denominator_square))
+        self.n2.numerator_square = float(Decimal(str(self.n2.numerator_square)) * Decimal(self.n1.denominator_square))
+        self.n1.denominator_square = \
+            float(Decimal(str(self.n2.denominator_square)) * Decimal(self.n1.denominator_square))
         self.n2.denominator_square = self.n1.denominator_square
         self.n1.reduce_squares()
         self.n1.reduce_squares()
@@ -94,16 +96,18 @@ class Number:
 
     def reduce_fraction(self):
         self.numerator, self.denominator = maths.irreducible_fraction(self.numerator, self.denominator)
+        if self.denominator < 0:
+            self.denominator *= -1
+            self.numerator *= -1
 
     def reduce_squares(self):
         self.numerator_square, self.denominator_square = maths.irreducible_fraction(self.numerator_square,
                                                                                     self.denominator_square)
         self.numerator_square, f1 = maths.square(self.numerator_square)
         self.denominator_square, f2 = maths.square(self.denominator_square)
-        self.numerator *= f1
-        self.denominator *= f2
-
+        self.numerator = float(Decimal(str(self.numerator)) * Decimal(str(f1)))
+        self.denominator = float(Decimal(str(self.denominator)) * Decimal(str(f2)))
         if self.denominator_square != 1:
-            self.denominator *= self.denominator_square
-            self.numerator_square *= self.denominator_square
+            self.denominator = float(Decimal(str(self.denominator_square)) * Decimal(str(self.denominator)))
+            self.numerator_square = float(Decimal(str(self.denominator_square)) * Decimal(str(self.numerator_square)))
             self.denominator_square = 1
