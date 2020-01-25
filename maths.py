@@ -69,6 +69,8 @@ def irreducible_fraction(numerator, denominator):
     numerator = int(round(numerator))
     denominator = int(round(denominator))
     gcd = find_gcd_euclide(numerator, denominator)
+    if denominator / gcd < 0:
+        gcd *= -1
     return int(numerator / gcd), int(denominator / gcd)
 
 

@@ -12,11 +12,10 @@ def start(coefficients):
             print("There is no solution.")
         exit()
     if coefficients['max'] == 1:
-        numerator, denominator = maths.irreducible_fraction(coefficients[0] * -1, coefficients[1])
         print("a = " + str(coefficients[1]) + ' | b = ' + str(coefficients[0]))
         print("The formula is : -b/a")
         print('The solution is:')
-        print(clean_string.division(numerator, denominator))
+        print(clean_string.division(coefficients[0] * -1, coefficients[1]))
         exit()
     discriminant = Decimal(str(coefficients[1])) * Decimal(str(coefficients[1])) \
         - Decimal(4) * Decimal(str(coefficients[2])) * Decimal(str(coefficients[0]))
