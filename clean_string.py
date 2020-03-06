@@ -9,14 +9,17 @@ def reduce_form(coefficients):
     string = ''
     for degree in lst:
         if coefficients[degree]:
-            string += maths.sign_number(coefficients[degree]) + \
-                      ' ' + str(maths.absolute(coefficients[degree])) + 'X^' + str(degree) + ' '
+            string += maths.sign_number(coefficients[degree]) + ' '
+            if coefficients[degree] != 1 or degree == 0:
+                string += str(maths.absolute(coefficients[degree]))
+            if degree > 0:
+                string += 'X'
+                if degree > 1:
+                    string += "^" + str(degree)
+            string += ' '
             coefficients['max'] = degree
-    string = re.sub(r"X\^0", '', string)
-    string = re.sub(r" 1X", ' X', string)
-    string = re.sub(r"\^1", '', string)
     if not string:
-        return '0'
+        return '0 '
     if string[0] == '+':
         return string[2:]
     return '-' + string[2:]

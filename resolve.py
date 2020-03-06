@@ -22,7 +22,7 @@ def start(coefficients):
     discriminant = Decimal(str(coefficients[1])) * Decimal(str(coefficients[1])) \
         - Decimal(4) * Decimal(str(coefficients[2])) * Decimal(str(coefficients[0]))
     print("a = " + str(coefficients[2]) + " | b = " + str(coefficients[1]) + " | " + "c = " + str(coefficients[0]))
-    print("Discriminant: " + str(discriminant))
+    print("Discriminant: " + str(clean_string.change_number_to_int(discriminant)))
     numerator, denominator = maths.irreducible_fraction(coefficients[1] * -1, coefficients[2] * 2)
     if discriminant == 0:
         print('\033[1m' + "Discriminant is nul." + '\033[0m')
@@ -34,7 +34,7 @@ def start(coefficients):
     if discriminant < 0:
         print('\033[1m' + "Discriminant is strictly negative." + '\033[0m')
         print('\033[1m' + "Formulas" + '\033[0m')
-        print("(-b + " + u"\u221A" + '-' + u"\u0394" + ")/2a\n(-b - " + u"\u221A" + '-' + u"\u0394" + ")/2a")
+        print("(-b + i" + u"\u221A" + '-' + u"\u0394" + ")/2a\n(-b - i" + u"\u221A" + '-' + u"\u0394" + ")/2a")
         print('\033[1m' + "Results" + '\033[0m')
         square_part1 = class_number.Number(numerator_square=-discriminant, denominator=2 * coefficients[2], real=0)
         square_part2 = class_number.Number(numerator=-1, numerator_square=-discriminant,

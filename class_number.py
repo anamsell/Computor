@@ -24,6 +24,8 @@ class Result:
         if (self.n1.numerator_square == self.n2.numerator_square and self.n1.real == self.n2.real) \
                 or self.n1.numerator == 0 or self.n2.numerator == 0:
             self.n1.numerator += self.n2.numerator
+            if self.n1.numerator_square == 1:
+                self.n1.numerator_square = self.n2.numerator_square
             self.n1.reduce_fraction()
             char1_real += char2_real
             if self.n1.numerator < 0:
