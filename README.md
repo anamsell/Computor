@@ -25,6 +25,7 @@ solvable ! In your case, your program should detect it and tell it.
 Installation:
 
 git clone https://github.com/anamsell/Computor.git Computor
+
 cd ./Computor
 
 Example:
