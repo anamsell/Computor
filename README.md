@@ -6,9 +6,6 @@ Why polynomials ? Because it's one of the simplest and most powerful mathematica
 We use it in all areas and at all levels to simplify and express a lot of things.
 For example, the sin, cos and tan functions are computed with the help of polynomials.
 
-The idea is to make you feel more confident using basic mathematical tools, which could
-be useful for a number of other projects at 42. It's not about "doing maths to do maths",
-but to allow us to progressively use that for other projects where it's needed.
 
 Write a program that solves polynomial equation of degree inferior or equal to 2.
 You must at least display :
@@ -24,10 +21,15 @@ solvable ! In your case, your program should detect it and tell it.
 
 Installation:
 
+
+
 git clone https://github.com/anamsell/Computor.git Computor
 
 cd ./Computor
 
 Example:
+
+
+
 
 python3 computor.py "1.5 * X^1 + 8.3 * X^2 - 2 * X^0 = -4.1 * X^1 + 2 * X^0"
