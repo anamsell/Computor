@@ -25,7 +25,7 @@ python3 computor.py "1 * X^1 + 8 * X^2 - 2 * X^0 + 3X^3 = -4 * X^1 + 2 * X^0 + 3
 
 python3 computor.py "1 * X^1 + 8 * X^2 - 2 * X^0 = -4 * X^1 + 2 * X^0 + 3X^3"
 ```
-### Display_usage
+### Display usage
 
 ```
 python3 computor.py
